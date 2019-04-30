@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #0B3861;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+   <children>
+      <AnchorPane layoutY="48.0" prefHeight="352.0" prefWidth="700.0" style="-fx-background-color: #fafafa;">
+         <children>
+            <Button fx:id="all_clients_button" layoutX="192.0" layoutY="85.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="317.0" style="-fx-border-radius: 5; -fx-background-color: #E0E6F8;" text="Clients">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+            <Button fx:id="add_new_client_button" layoutX="192.0" layoutY="195.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="317.0" style="-fx-border-radius: 5; -fx-background-color: #CEF6D8;" text="Add new client">
+               <font>
+                  <Font name="Arial" size="40.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+      <Label layoutX="14.0" prefHeight="42.0" prefWidth="75.0" text="Leaf" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="33.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

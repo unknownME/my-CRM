@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="747.0" prefWidth="600.0" style="-fx-background-color: #0B3861;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdditionController">
+   <children>
+      <AnchorPane layoutY="47.0" prefHeight="700.0" prefWidth="600.0" style="-fx-background-color: #fafafa;">
+         <children>
+            <Text fill="#0c3961" layoutX="247.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add client" wrappingWidth="106.13671875">
+               <font>
+                  <Font name="Arial" size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="67.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last name" wrappingWidth="106.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patronymic" wrappingWidth="121.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Age" wrappingWidth="47.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of massage" wrappingWidth="179.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Diseases" wrappingWidth="92.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="30.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Client's activity" wrappingWidth="155.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="31.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recommendations" wrappingWidth="192.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="32.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of registration" wrappingWidth="207.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <Text layoutX="33.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Photo" wrappingWidth="67.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <TextField fx:id="additional_name_field" layoutX="260.0" layoutY="78.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_last_name_field" layoutX="260.0" layoutY="113.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_patronymic_field" layoutX="260.0" layoutY="148.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_age_field" layoutX="260.0" layoutY="182.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_activity_field" layoutX="260.0" layoutY="253.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_massageType_field" layoutX="260.0" layoutY="288.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextField fx:id="additional_disease_field" layoutX="260.0" layoutY="324.0" prefHeight="25.0" prefWidth="306.0" />
+            <TextArea fx:id="additional_recomendations_field" layoutX="260.0" layoutY="359.0" prefHeight="96.0" prefWidth="306.0" />
+            <DatePicker fx:id="additional_rgistrationDate_field" layoutX="260.0" layoutY="463.0" />
+            <Text layoutX="30.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" wrappingWidth="82.13671875">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <RadioButton fx:id="additional_male_radio" layoutX="260.0" layoutY="217.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Male">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="additional_female_radio" layoutX="356.0" layoutY="217.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Female">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+            <Button fx:id="additional_uploadPhoto_button" layoutX="260.0" layoutY="499.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" text="Upload" />
+            <Button fx:id="additional_addClient_button" layoutX="27.0" layoutY="587.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="192.0" style="-fx-background-color: #E0E6F8;" text="Add client">
+               <font>
+                  <Font name="Arial" size="29.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="171.0" fitWidth="275.0" layoutX="397.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/classic-strokes-for-intro-folks.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <Label layoutX="14.0" prefHeight="42.0" prefWidth="75.0" text="Leaf" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="33.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
