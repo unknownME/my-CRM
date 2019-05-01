@@ -1,23 +1,14 @@
-package application;
+package database;
 
 import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DatabaseHandler extends Configs {
+import animations.Alerts;
+import application.Client;
 
-	Connection dbConnection;
-
-	public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-		String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
-				+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=UTC";
-
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
-		return dbConnection;
-	}
+public class ClientsDbHandler {
 
 	public void addNewClient(Client client, String gender, String registrationDate, FileInputStream photo)
 			throws ClassNotFoundException {
@@ -28,7 +19,7 @@ public class DatabaseHandler extends Configs {
 				+ Const.CLIENT_DISEASES + "," + Const.CLIENT_RECOMMENDATIONS + "," + Const.CLIENT_REGISTRATION_DATE
 				+ "," + Const.CLIENT_PHOTO + ")" + " values(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement ps = getDbConnection().prepareStatement(insert);
+			PreparedStatement ps = DatabaseHandler.getDbConnection().prepareStatement(insert);
 			ps.setString(1, client.getFirstName());
 			ps.setString(2, client.getLastName());
 			ps.setString(3, client.getPatronymic());
@@ -43,10 +34,20 @@ public class DatabaseHandler extends Configs {
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			Alerts.infoBox(e.toString(), "sql error");
 		}
+	}
 
+	public ResultSet getAllClients() {
+		ResultSet resultSet = null;
+		String request = "select * from " + Const.CLIENTS_TABLE;
+		try {
+			PreparedStatement ps = DatabaseHandler.getDbConnection().prepareStatement(request);
+			resultSet = ps.executeQuery();
+		} catch (SQLException e) {
+			Alerts.infoBox(e.toString(), "sql error");
+		}
+		return resultSet;
 	}
 
 }

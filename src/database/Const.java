@@ -1,4 +1,4 @@
-package application;
+package database;
 
 public class Const {
 

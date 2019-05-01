@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import animations.Alerts;
 import application.Client;
-import application.DatabaseHandler;
+import database.ClientsDbHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -78,7 +78,7 @@ public class AdditionController {
 	}
 
 	private void addNewClient() throws FileNotFoundException {
-		DatabaseHandler dbh = new DatabaseHandler();
+		ClientsDbHandler dbh = new ClientsDbHandler();
 
 		additional_uploadPhoto_button.setOnAction(event -> {
 			fileChooser = new FileChooser();

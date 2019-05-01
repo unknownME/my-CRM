@@ -43,6 +43,20 @@ public class HomeController {
 			stage.showAndWait();
 		});
 		
-		
+		all_clients_button.setOnAction(event -> {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getClassLoader().getResource("\\views\\AllClients.fxml"));
+
+			try {
+				loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			Parent root = loader.getRoot();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.showAndWait();
+		});
 	}
 }
