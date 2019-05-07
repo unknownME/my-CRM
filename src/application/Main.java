@@ -1,5 +1,6 @@
 package application;
 
+import animations.Alerts;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ public class Main extends Application {
 			primaryStage.setScene(new Scene(root));
  			primaryStage.show();
 		} catch (Exception e) {
+			Alerts.infoBox(e.toString(), "sql error");
 			e.printStackTrace();
 		}
 	}

@@ -3,6 +3,8 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import animations.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,7 +36,7 @@ public class HomeController {
 			try {
 				loader.load();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Alerts.infoBox(e.toString(), "sql error");
 			}
 
 			Parent root = loader.getRoot();
@@ -50,7 +52,7 @@ public class HomeController {
 			try {
 				loader.load();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Alerts.infoBox(e.toString(), "error");
 			}
 
 			Parent root = loader.getRoot();

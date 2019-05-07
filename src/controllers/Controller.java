@@ -51,7 +51,7 @@ public class Controller {
 			try {
 				loader.load();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Alerts.infoBox(e.toString(), "sql error");
 			}
 
 			Parent root = loader.getRoot();

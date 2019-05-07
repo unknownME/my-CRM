@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import animations.Alerts;
+
 public class DatabaseHandler {
 
 	private static Connection dbConnection;
@@ -15,12 +17,12 @@ public class DatabaseHandler {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			Alerts.infoBox(e.toString(), "error");
 		}
 		try {
 			dbConnection = DriverManager.getConnection(URL, DB_LOGIN, DB_PASSWORD);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Alerts.infoBox(e.toString(), "sql error");
 		}
 	}
 

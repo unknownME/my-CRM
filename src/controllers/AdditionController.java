@@ -17,6 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -73,6 +74,9 @@ public class AdditionController {
 	private Button additional_addClient_button;
 
 	@FXML
+	private ImageView pic;
+
+	@FXML
 	void initialize() throws FileNotFoundException {
 		addNewClient();
 	}
@@ -89,44 +93,53 @@ public class AdditionController {
 
 		additional_addClient_button.setOnAction(event -> {
 
-			String gender;
-			if (additional_female_radio.isSelected()) {
-				gender = "Female";
-			} else {
-				gender = "Male";
+			if(!additional_female_radio.isSelected() && !additional_male_radio.isSelected()) {
+				Alerts.infoBox("please select the gender type", "warning");
+				return;
 			}
-
-			String registrationDate;
-
-			if (additional_rgistrationDate_field.getValue() == null) {
-				registrationDate = null;
-			} else {
-				registrationDate = additional_rgistrationDate_field.getValue()
-						.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+			
+			if(additional_female_radio.isSelected() && additional_male_radio.isSelected()) {
+				Alerts.infoBox("gender type should be only one", "warning");
+				return;
 			}
+			
+			String gender = additional_female_radio.isSelected() ? gender = "Female" : "Male";
+
+			String registrationDate = additional_rgistrationDate_field.getValue() == null ? registrationDate = null
+					: additional_rgistrationDate_field.getValue().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
 			String firstName = additional_name_field.getText();
-			String lastName = additional_last_name_field.getText();
-			String patronymic = additional_patronymic_field.getText();
+			String lastName = additional_last_name_field.getText().equals("") ? null : additional_last_name_field.getText();
+			String patronymic = additional_patronymic_field.getText().equals("") ? null : additional_patronymic_field.getText();
 			String age = additional_age_field.getText();
-			String activity = additional_activity_field.getText();
-			String massagetype = additional_massageType_field.getText();
-			String diseases = additional_disease_field.getText();
-			String recommendations = additional_recomendations_field.getText();
+			String activity = additional_activity_field.getText().equals("") ? null : additional_activity_field.getText();
+			String massagetype = additional_massageType_field.getText().equals("") ? null : additional_massageType_field.getText();
+			String diseases = additional_disease_field.getText().equals("") ? null : additional_disease_field.getText();
+			String recommendations = additional_recomendations_field.getText().equals("") ? null : additional_disease_field.getText();
 
 			if (!isInteger(additional_age_field.getText())) {
 				Alerts.infoBox("age should be a number!", "warning");
 				return;
 			}
-
+			
+			if(additional_rgistrationDate_field.getValue() == null) {
+				Alerts.infoBox("please enter registration date", "warning");
+				return;
+			}
+			
+			if(additional_name_field.getText().equals("")) {
+				Alerts.infoBox("please enter the name", "warning");
+				return;
+			}
+			
 			Client client = new Client(firstName, lastName, patronymic, age, activity, massagetype, diseases,
 					recommendations);
 
 			try {
 				if (file == null) {
-					dbh.addNewClient(client, gender, registrationDate, null);
+					dbh.addNewClient(client, gender, registrationDate, null, null);
 				} else {
-					dbh.addNewClient(client, gender, registrationDate, new FileInputStream(file));
+					dbh.addNewClient(client, gender, registrationDate, null, new FileInputStream(file));
 				}
 
 			} catch (ClassNotFoundException e) {
@@ -135,9 +148,7 @@ public class AdditionController {
 				e.printStackTrace();
 			} finally {
 				additional_addClient_button.getScene().getWindow().hide();
-				Alerts.infoBox("New client added successfully!", "info");
 			}
-
 		});
 	}
 
