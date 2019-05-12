@@ -30,6 +30,7 @@ public class AllClientsController extends ClientsDbHandler {
 	private static final Date localDate = new Date();
 	private ResultSet rs;
 	private static TempClient client;
+	private static TableView<TempClient> tableView;
 
 	@FXML
 	private ResourceBundle resources;
@@ -65,6 +66,11 @@ public class AllClientsController extends ClientsDbHandler {
 				return;
 			}
 			
+			if(currentClient.getStatus().equals("removed")) {
+				Alerts.infoBox("please choose the ACTIVE client", "warning");
+				return;
+			}
+			
 			try {
 				while (rs.next()) {
 					removeClient(currentClient);
@@ -89,6 +95,12 @@ public class AllClientsController extends ClientsDbHandler {
 		});
 
 		re_activate_button.setOnAction(event -> {
+			
+			if(client == null) {
+				Alerts.infoBox("please choose the REMOVED client", "warning");
+				return;
+			}	
+			
 			rs = getAllRemovedClients();
 			TempClient currentClient = table_view.getSelectionModel().getSelectedItem();
 
@@ -118,7 +130,7 @@ public class AllClientsController extends ClientsDbHandler {
 			}	
 			
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getClassLoader().getResource("\\views\\ViewClient.fxml"));
+			loader.setLocation(getClass().getResource("/views/ViewClient.fxml"));
 
 			try {
 				loader.load();
@@ -167,13 +179,12 @@ public class AllClientsController extends ClientsDbHandler {
 				registrationDateColumn, discountColumn, lastMassageColumn, notificationColumn);
 
 		table_view.setItems(getListItems(getAllActiveClients()));
-
-		table_view.setOnMouseClicked(event -> {
-//			TempClient h = table_view.getSelectionModel().getSelectedItem();
-		});
+		
+		tableView = table_view;
+			
 	}
 
-	private ObservableList<TempClient> getListItems(ResultSet resultSet) throws ParseException {
+	public ObservableList<TempClient> getListItems(ResultSet resultSet) throws ParseException {
 		ObservableList<TempClient> items = FXCollections.observableArrayList();
 		rs = resultSet;
 
@@ -183,6 +194,7 @@ public class AllClientsController extends ClientsDbHandler {
 				Date date = rs.getDate(12);
 
 				String tDate = dateFormat.format(date);
+				
 				String tLastMassageDate = rs.getDate(13) == null ? tLastMassageDate = ""
 						: dateFormat.format(rs.getDate(13));
 
@@ -223,7 +235,11 @@ public class AllClientsController extends ClientsDbHandler {
 	public static TempClient getConcreteClient() {
 		return client;
 	}
-
+	
+	public static TableView<TempClient> getTableView(){
+		return tableView;
+	}
+	
 	public class TempClient {
 		private int id;
 		private String name;

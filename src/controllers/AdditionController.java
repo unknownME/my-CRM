@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import animations.Alerts;
@@ -22,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class AdditionController {
+public class AdditionController extends ClientsDbHandler {
 
 	private FileChooser fileChooser;
 	private File file;
@@ -82,7 +85,6 @@ public class AdditionController {
 	}
 
 	private void addNewClient() throws FileNotFoundException {
-		ClientsDbHandler dbh = new ClientsDbHandler();
 
 		additional_uploadPhoto_button.setOnAction(event -> {
 			fileChooser = new FileChooser();
@@ -93,59 +95,75 @@ public class AdditionController {
 
 		additional_addClient_button.setOnAction(event -> {
 
-			if(!additional_female_radio.isSelected() && !additional_male_radio.isSelected()) {
+			if (!additional_female_radio.isSelected() && !additional_male_radio.isSelected()) {
 				Alerts.infoBox("please select the gender type", "warning");
 				return;
 			}
-			
-			if(additional_female_radio.isSelected() && additional_male_radio.isSelected()) {
+
+			if (additional_female_radio.isSelected() && additional_male_radio.isSelected()) {
 				Alerts.infoBox("gender type should be only one", "warning");
 				return;
 			}
-			
-			String gender = additional_female_radio.isSelected() ? gender = "Female" : "Male";
 
-			String registrationDate = additional_rgistrationDate_field.getValue() == null ? registrationDate = null
-					: additional_rgistrationDate_field.getValue().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+			String gender = additional_female_radio.isSelected() ? "Female" : "Male";
+
+			String registrationDate = additional_rgistrationDate_field.getValue() == null ? null
+					: additional_rgistrationDate_field.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 			String firstName = additional_name_field.getText();
-			String lastName = additional_last_name_field.getText().equals("") ? null : additional_last_name_field.getText();
-			String patronymic = additional_patronymic_field.getText().equals("") ? null : additional_patronymic_field.getText();
+			String lastName = additional_last_name_field.getText().equals("") ? null
+					: additional_last_name_field.getText();
+			String patronymic = additional_patronymic_field.getText().equals("") ? null
+					: additional_patronymic_field.getText();
 			String age = additional_age_field.getText();
-			String activity = additional_activity_field.getText().equals("") ? null : additional_activity_field.getText();
-			String massagetype = additional_massageType_field.getText().equals("") ? null : additional_massageType_field.getText();
+			String activity = additional_activity_field.getText().equals("") ? null
+					: additional_activity_field.getText();
+			String massagetype = additional_massageType_field.getText().equals("") ? null
+					: additional_massageType_field.getText();
 			String diseases = additional_disease_field.getText().equals("") ? null : additional_disease_field.getText();
-			String recommendations = additional_recomendations_field.getText().equals("") ? null : additional_disease_field.getText();
+			String recommendations = additional_recomendations_field.getText().equals("") ? null
+					: additional_disease_field.getText();
 
 			if (!isInteger(additional_age_field.getText())) {
 				Alerts.infoBox("age should be a number!", "warning");
 				return;
 			}
-			
-			if(additional_rgistrationDate_field.getValue() == null) {
+
+			if (additional_rgistrationDate_field.getValue() == null) {
 				Alerts.infoBox("please enter registration date", "warning");
 				return;
 			}
-			
-			if(additional_name_field.getText().equals("")) {
+
+			if (additional_name_field.getText().equals("")) {
 				Alerts.infoBox("please enter the name", "warning");
 				return;
 			}
-			
+
+			try {
+				if (isTrueDate(registrationDate)) {
+					Alerts.infoBox(
+							"please enter the correct date, because date " + registrationDate + " is in the future",
+							"warning");
+					return;
+				}
+			} catch (ParseException e1) {
+				Alerts.infoBox(e1.toString(), "error");
+			}
+
 			Client client = new Client(firstName, lastName, patronymic, age, activity, massagetype, diseases,
 					recommendations);
 
 			try {
 				if (file == null) {
-					dbh.addNewClient(client, gender, registrationDate, null, null);
+					addNewClient(client, gender, registrationDate, null, null);
 				} else {
-					dbh.addNewClient(client, gender, registrationDate, null, new FileInputStream(file));
+					addNewClient(client, gender, registrationDate, null, new FileInputStream(file));
 				}
 
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				Alerts.infoBox(e.toString(), "error");
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				Alerts.infoBox(e.toString(), "error");
 			} finally {
 				additional_addClient_button.getScene().getWindow().hide();
 			}
@@ -161,6 +179,11 @@ public class AdditionController {
 			return false;
 		}
 		return true;
+	}
+
+	public static boolean isTrueDate(String inputDate) throws ParseException {
+		Date date = new SimpleDateFormat("yyyy-MM-dd").parse(inputDate);
+		return new Date().before(date);
 	}
 
 }

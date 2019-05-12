@@ -31,7 +31,7 @@ public class HomeController {
 		add_new_client_button.setOnAction(event -> {
 
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getClassLoader().getResource("\\views\\addNew.fxml"));
+			loader.setLocation(getClass().getResource("/views/addNew.fxml"));
 
 			try {
 				loader.load();
@@ -47,7 +47,7 @@ public class HomeController {
 		
 		all_clients_button.setOnAction(event -> {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getClassLoader().getResource("\\views\\AllClients.fxml"));
+			loader.setLocation(getClass().getResource("/views/AllClients.fxml"));
 
 			try {
 				loader.load();

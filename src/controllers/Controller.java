@@ -38,15 +38,14 @@ public class Controller {
 			String login = login_field.getText().trim();
 			String password = password_field.getText().trim();
 			
-			if(!login.equals("") && !password.equals("")) {
-				loginUser(login, password);
-			} else {
-//				Alerts.infoBox("fields can't be empty", "warning");
-			}
+			if(!login.equals("Iree") && !password.equals("Leaf")) {
+				Alerts.infoBox("please enter the correct credentials", "login error");
+				return;
+			} 
 			
 			authSignInButton.getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getClassLoader().getResource("\\views\\app.fxml"));
+			loader.setLocation(getClass().getResource("/views/app.fxml"));
 
 			try {
 				loader.load();
@@ -62,7 +61,4 @@ public class Controller {
 		
 	}
 	
-	private void loginUser(String login, String password) {
-		
-	}
 }
